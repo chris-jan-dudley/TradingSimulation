@@ -269,7 +269,7 @@ public class StockExchange extends Market {
         // awaiting others to commit so can access price and modify it, psuedo code below:
         Random rng = new Random();
         for (Company c : companies) {
-            c.setSharePrice((int) Math.min(1, (c.getSharePrice * ((0.5 - rng.nextFloat()) / 50))));
+            c.setSharePrice((int) Math.min(1, (c.getSharePrice() * ((0.5 - rng.nextFloat()) / 50))));
         }
 
     }
@@ -331,10 +331,7 @@ public class StockExchange extends Market {
         }
 
         // Collect and store supply and demand for each Company
-        ArrayList<CompanyTradeInfo> tInfo = new ArrayList<CompanyTradeInfo>();
-        for (Company c : companies) {
-            tInfo.add(new CompanyTradeInfo(c));
-        }
+        
 
         for (Trader t : traders) {
             ArrayList<Pair<Company, int>> wantToBuy = t.getWantToBuy();
