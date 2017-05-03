@@ -44,17 +44,20 @@ public class TickRow {
      *
      */
 
-    void addEventsOccuring(ArrayList<ExternalEvent> ev) {
+    void addEventChanges(ArrayList<ExternalEvent> ev) {
         this.eventsOccuring = ev;
     }
-
-
-    void commitRow() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    ArrayList<Trader> getTraders() {
+        return this.traders;
     }
 
     void addTraders(ArrayList<Trader> clonedTraders) {
         this.traders = clonedTraders;
+    }
+    
+     ArrayList<TradeHappening> getOccuredTrades() {
+        return this.occured;
     }
 
     void addOccuredTrades(ArrayList<TradeHappening> thisTickTrades) {
