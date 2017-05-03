@@ -10,10 +10,11 @@ import java.util.HashMap;
 abstract public class Market {
 
     private final String name;
-    private int currentTick;
+    protected int currentTick;
     private Date startDate;
     private Date endDate;
     private int tickRate;
+    protected StockExchangeData mem;
 
     /**
      *
@@ -32,6 +33,9 @@ abstract public class Market {
      */
     public void resetTick() {
         this.currentTick = 0;
+        TickRow firstTick = mem.getTickRow(1);
+        this.mem = new StockExchangeData();
+        this.mem.setTickRow(firstTick);
     }
 
     // old return was: HashMap<Integer, HashMap<String, Integer>>

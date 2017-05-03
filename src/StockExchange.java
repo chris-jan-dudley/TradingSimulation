@@ -24,7 +24,6 @@ public class StockExchange extends Market {
     private int endTick;
     private Date startDate;
     private Date endDate;
-    private StockExchangeData mem;
     private ArrayList<ExternalEvent> externalEvents;
     private HashMap<Integer, ArrayList<ExternalEvent>> externalEventsIndexedToTicks;
     private ArrayList<Trader> traders;

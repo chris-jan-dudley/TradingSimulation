@@ -18,6 +18,10 @@ public class StockExchangeData {
         rows.add(r);
         return (r);
     }
+    
+    public void setTickRow(TickRow tR) {
+        rows.add(tR);
+    }
 
     /**
      *
