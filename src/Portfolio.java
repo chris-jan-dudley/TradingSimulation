@@ -20,43 +20,82 @@ public class Portfolio {
     Client ownedBy;
     Trader managedBy;
 
+    /**
+     *
+     * @return
+     */
     public Client getOwnedBy() {
         return ownedBy;
     }
 
+    /**
+     *
+     * @param ownedBy
+     */
     public void setOwnedBy(Client ownedBy) {
         this.ownedBy = ownedBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Trader getManagedBy() {
         return managedBy;
     }
 
+    /**
+     *
+     * @param managedBy
+     */
     public void setManagedBy(Trader managedBy) {
         this.managedBy = managedBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Company, Integer> getOwnedShares() {
         return ownedShares;
     }
 
+    /**
+     *
+     * @param ownedShares
+     */
     public void setOwnedShares(Map<Company, Integer> ownedShares) {
         this.ownedShares = ownedShares;
     }
     int cashValue = 0;
 
+    /**
+     *
+     * @param cashValue
+     */
     public void setCashValue(int cashValue) {
         this.cashValue = cashValue;
     }
     Map<Company, Integer> ownedShares;
     int riskValue;
 
+    /**
+     *
+     * @param client
+     * @param trader
+     */
     public Portfolio(Client client, Trader trader) {
         ownedBy = client;
         managedBy = trader;
         ownedShares = new HashMap<>();
     }
 
+    /**
+     *
+     * @param company
+     * @param number
+     * @return
+     */
     public boolean addShares(Company company, int number) {
         if (ownedShares.containsKey(company)) {
             ownedShares.replace(company, ownedShares.get(company) + (number));
@@ -69,6 +108,12 @@ public class Portfolio {
         }
     }
 
+    /**
+     *
+     * @param company
+     * @param number
+     * @return
+     */
     public boolean removeShares(Company company, int number) {
         //remove shares from the map
         if (ownedShares.get(company) <= number) {
@@ -79,6 +124,11 @@ public class Portfolio {
         }
     }
 
+    /**
+     *
+     * @param cash
+     * @return
+     */
     public boolean removeCash(int cash) {
         //if cashvalue - cash is >= 0 then
         //cashvalue = cashvalue - cash
@@ -94,15 +144,28 @@ public class Portfolio {
         }
     }
 
+    /**
+     *
+     * @param cash
+     * @return
+     */
     public boolean addCash(int cash) {
         cashValue += cash;
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCurrentCash() {
         return cashValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public int calculateNetWorth() {
         //go through map
         //for each company in map
@@ -116,10 +179,19 @@ public class Portfolio {
         return netWorth;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRisk() {
         return riskValue;
     }
 
+    /**
+     *
+     * @param risk
+     * @return
+     */
     public boolean setRisk(int risk) {
         if (risk <= 100) {
             riskValue = risk;
@@ -128,6 +200,10 @@ public class Portfolio {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Portfolio clone() {
         Portfolio clonePortfolio = new Portfolio(this.getOwnedBy(), this.getManagedBy());

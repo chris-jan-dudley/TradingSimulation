@@ -9,16 +9,32 @@ import java.util.Random;
  */
 public class RandomTrader extends Trader {
 
+    /**
+     *
+     */
     public mode tradeMode;
 
+    /**
+     *
+     * @return
+     */
     public mode getTradeMode() {
         return tradeMode;
     }
 
+    /**
+     *
+     * @param tradeMode
+     */
     public void setTradeMode(mode tradeMode) {
         this.tradeMode = tradeMode;
     }
 
+    /**
+     *
+     * @param clients
+     * @param stockE
+     */
     public RandomTrader(ArrayList< Client> clients, StockExchange stockE) {
         super(clients, stockE);
         tradeMode = mode.BALANCED;
@@ -147,13 +163,34 @@ public class RandomTrader extends Trader {
     }
 
     //purchase mode enum
+
+    /**
+     *
+     */
     public enum mode {
+
+        /**
+         *
+         */
         PURCHASER,
+
+        /**
+         *
+         */
         BALANCED,
+
+        /**
+         *
+         */
         SELLER
     }
 
     //returns a random int between 1 and 10
+
+    /**
+     *
+     * @return
+     */
     public int randomInt() {
         Random randomGenerator = new Random();
         int randInt = randomGenerator.nextInt(10);
@@ -193,6 +230,10 @@ public class RandomTrader extends Trader {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected Trader clone() {
         RandomTrader cloneRandom = new RandomTrader(super.getClients(), super.getStockE());

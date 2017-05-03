@@ -10,6 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ *
+ * @author Chris
+ */
 public class ViewController extends Application {
 
     BorderPane root = new BorderPane();
@@ -39,6 +43,9 @@ public class ViewController extends Application {
         });
     }
 
+    /**
+     *
+     */
     public ViewController() {
         //All other classes    
         //exchange = new StockExchange(parameters);
@@ -55,22 +62,38 @@ public class ViewController extends Application {
         ticker.setCycleCount(Animation.INDEFINITE);
     }
 
+    /**
+     *
+     */
     public static void readyGUI() {
         launch();
     }
 
+    /**
+     *
+     */
     public void playSimulation() {
         ticker.play();
     }
 
+    /**
+     *
+     */
     public void pauseSimulation() {
         ticker.pause();
     }
 
+    /**
+     *
+     * @param newSpeed
+     */
     public void setSpeed(int newSpeed) {
         ticker.setRate(newSpeed);
     }
 
+    /**
+     *
+     */
     public void update() {
         stocksChart.updateAllSeries();
         eventsLog.displayEventsForTick(exchange.getTick());
@@ -79,6 +102,9 @@ public class ViewController extends Application {
         //All other update methods
     }
 
+    /**
+     *
+     */
     public void reset() {
         ticker.stop();
         eventsLog.clearEventsLog();
@@ -87,22 +113,42 @@ public class ViewController extends Application {
         //exchange.reset()
     }
 
+    /**
+     *
+     * @return
+     */
     public ChartViewer getChart() {
         return stocksChart;
     }
 
+    /**
+     *
+     * @return
+     */
     public EventViewer getEventLog() {
         return eventsLog;
     }
 
+    /**
+     *
+     * @return
+     */
     public FilterTreeViewer getFilterTree() {
         return filterTree;
     }
 
+    /**
+     *
+     * @return
+     */
     public SettingsViewer getSettings() {
         return simSettings;
     }
 
+    /**
+     *
+     * @return
+     */
     public StockExchange getExchange() {
         return exchange;
     }

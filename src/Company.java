@@ -9,22 +9,57 @@ public abstract class Company {
     private int numberOfShares;
     private double sharePrice;
 
+    /**
+     *
+     */
     protected RiskLevels riskFactor;
 
+    /**
+     *
+     */
     public enum RiskLevels {
-        High, Medium, Low
+
+        /**
+         *
+         */
+        High,
+
+        /**
+         *
+         */
+        Medium,
+
+        /**
+         *
+         */
+        Low
     }
 
+    /**
+     *
+     * @param name
+     * @param startingShares
+     * @param startingPrice
+     */
     public Company(String name, int startingShares, double startingPrice) {
         this.name = name;
         numberOfShares = startingShares;
         sharePrice = startingPrice;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param newPrice
+     * @return
+     */
     public boolean setSharePrice(double newPrice) {
         if (newPrice >= 0) {
             sharePrice = newPrice;
@@ -34,10 +69,19 @@ public abstract class Company {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public double getSharePrice() {
         return sharePrice;
     }
 
+    /**
+     *
+     * @param newAmount
+     * @return
+     */
     public boolean setNumberOfShares(int newAmount) {
         if (newAmount >= 0) {
             numberOfShares = newAmount;
@@ -47,18 +91,34 @@ public abstract class Company {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfShares() {
         return numberOfShares;
     }
 
+    /**
+     *
+     * @param risk
+     */
     public void setRisk(RiskLevels risk) {
         riskFactor = risk;
     }
 
+    /**
+     *
+     * @return
+     */
     public RiskLevels getRiskFactor() {
         return riskFactor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected abstract Company clone();
 

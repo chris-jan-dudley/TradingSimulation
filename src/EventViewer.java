@@ -6,6 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Chris
+ */
 public class EventViewer {
 
     ViewController controller;
@@ -14,6 +18,11 @@ public class EventViewer {
     VBox eventStack;
     ArrayList<ExternalEvent> events;
 
+    /**
+     *
+     * @param controller
+     * @param events
+     */
     public EventViewer(ViewController controller, ArrayList<ExternalEvent> events) {
         this.controller = controller;
         this.events = events;
@@ -27,10 +36,18 @@ public class EventViewer {
         scrollablePane.setPadding(new Insets(10));
     }
 
+    /**
+     *
+     * @return
+     */
     public Node getFxNode() {
         return scrollablePane;
     }
 
+    /**
+     *
+     * @param tick
+     */
     public void displayEventsForTick(int tick) {
         for (ExternalEvent event : events) {
             if (event.getFromTick() == tick) {
@@ -39,10 +56,19 @@ public class EventViewer {
         }
     }
 
+    /**
+     *
+     */
     public void clearEventsLog() {
         eventStack.getChildren().removeAll(eventStack.getChildren());
     }
 
+    /**
+     *
+     * @param date
+     * @param nature
+     * @param action
+     */
     public void logEvent(String date, String nature, String action) {
         eventStack.getChildren().add(
                 new Label(date + ": " + nature + ", " + action)

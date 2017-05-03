@@ -9,6 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Chris
+ */
 public class SettingsViewer {
 
     ViewController controller;
@@ -18,6 +22,10 @@ public class SettingsViewer {
     private DatePicker startDate = new DatePicker(LocalDate.of(2017, 1, 1));
     private DatePicker endDate = new DatePicker(LocalDate.of(2018, 1, 1));
 
+    /**
+     *
+     * @param controller
+     */
     public SettingsViewer(ViewController controller) {
         this.controller = controller;
 
@@ -111,14 +119,26 @@ public class SettingsViewer {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Node getFxNode() {
         return container;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDate getStartDate() {
         return startDate.getValue();
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDate getEndDate() {
         return endDate.getValue();
     }

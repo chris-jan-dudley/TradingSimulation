@@ -9,6 +9,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Chris
+ */
 public class FilterTreeViewer {
 
     ViewController controller;
@@ -18,6 +22,10 @@ public class FilterTreeViewer {
     TreeItem indexRoot = new TreeItem<>("Stock Index");
     TreeItem companiesRoot = new TreeItem<>("Companies");
 
+    /**
+     *
+     * @param controller
+     */
     public FilterTreeViewer(ViewController controller) {
         this.controller = controller;
 
@@ -54,6 +62,10 @@ public class FilterTreeViewer {
         companiesRoot.setExpanded(true);
     }
 
+    /**
+     *
+     * @return
+     */
     public Node getFxNode() {
         return container;
     }

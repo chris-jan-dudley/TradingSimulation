@@ -14,6 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Chris
+ */
 public class ChartViewer {
 
     private ViewController controller;
@@ -30,6 +34,11 @@ public class ChartViewer {
     private ArrayList<ChartEntry> companyEntries = new ArrayList<>();
     private ChartEntry indexEntry;
 
+    /**
+     *
+     * @param controller
+     * @param companies
+     */
     public ChartViewer(ViewController controller, ArrayList<Company> companies) {
         this.controller = controller;
 
@@ -84,10 +93,17 @@ public class ChartViewer {
     XYChart.Series testData = new XYChart.Series();
     Random ran = new Random();
 
+    /**
+     *
+     * @param tick
+     */
     public void addDataTest(double tick) {
         testData.getData().add(new XYChart.Data(tick, (ran.nextDouble() * 1) + 5));
     }
 
+    /**
+     *
+     */
     public void updateDateBounds() {
         LocalDate startDate = controller.getSettings().getStartDate();
         LocalDate endDate = controller.getSettings().getEndDate();
@@ -103,10 +119,18 @@ public class ChartViewer {
         dateAxis.setUpperBound((int) ChronoUnit.DAYS.between(startDate, endDate) - ChronoUnit.DAYS.between(viewToDate.getValue(), endDate));
     }
 
+    /**
+     *
+     * @return
+     */
     public Node getFxNode() {
         return container;
     }
 
+    /**
+     *
+     * @param companies
+     */
     public void addCompaniesToChart(ArrayList<Company> companies) {
         double sumSharePrice = 0;
         for (Company companyObj : companies) {
@@ -127,11 +151,17 @@ public class ChartViewer {
 
     }
 
+    /**
+     *
+     */
     public void clearStocksChart() {
         companyEntries.clear();
         lineChart.getData().clear();
     }
 
+    /**
+     *
+     */
     public void updateAllSeries() {
         double day = controller.getExchange().getTick() / 28;
         double sumSharePrice = 0;
@@ -149,10 +179,18 @@ public class ChartViewer {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<ChartEntry> getCompanyEntries() {
         return companyEntries;
     }
 
+    /**
+     *
+     * @return
+     */
     public ChartEntry getIndexEntry() {
         return indexEntry;
     }
