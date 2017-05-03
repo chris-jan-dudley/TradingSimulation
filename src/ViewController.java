@@ -1,6 +1,4 @@
-package tradingsimulation;
 
-import java.util.Timer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,35 +11,35 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ViewController extends Application {
-    
-    BorderPane root = new BorderPane();  
+
+    BorderPane root = new BorderPane();
     SettingsViewer simSettings;
     ChartViewer stocksChart;
     FilterTreeViewer filterTree;
     EventViewer eventsLog;
-    
+
     StockExchange exchange;
     Timeline ticker;
-    
+
     @Override
     public void start(Stage primaryStage) {
         root.setRight(filterTree.getFxNode());
         root.setLeft(stocksChart.getFxNode());
-        root.setBottom(new HBox(eventsLog.getFxNode(), simSettings.getFxNode())); 
-                
-        Scene scene = new Scene(root, 880, 550);        
+        root.setBottom(new HBox(eventsLog.getFxNode(), simSettings.getFxNode()));
+
+        Scene scene = new Scene(root, 880, 550);
         primaryStage.setTitle("Stock Market Simulation");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-        
+
         primaryStage.setOnCloseRequest(e -> {
             System.out.println("Stage is closing");
             ticker.stop();
         });
     }
-    
-    public ViewController () {        
+
+    public ViewController() {
         //All other classes    
         //exchange = new StockExchange(parameters);
         simSettings = new SettingsViewer(this);
@@ -50,70 +48,63 @@ public class ViewController extends Application {
         filterTree = new FilterTreeViewer(this);
         eventsLog = new EventViewer(this, null);
         //eventsLog = new EventViewer(this, exchange.getEvents());
-        
+
         ticker = new Timeline(new KeyFrame(Duration.minutes(15), e -> {
             update();
         }));
         ticker.setCycleCount(Animation.INDEFINITE);
     }
-    
+
     public static void readyGUI() {
         launch();
     }
-    
-    public void playSimulation () {
+
+    public void playSimulation() {
         ticker.play();
     }
-    
-    public void pauseSimulation () {
+
+    public void pauseSimulation() {
         ticker.pause();
     }
-    
-    public void setSpeed (int newSpeed) {
+
+    public void setSpeed(int newSpeed) {
         ticker.setRate(newSpeed);
     }
-    
-    public void update () {
+
+    public void update() {
         stocksChart.updateAllSeries();
         eventsLog.displayEventsForTick(exchange.getTick());
         exchange.tick();
-        
+
         //All other update methods
     }
-    
-    public void reset () {
+
+    public void reset() {
         ticker.stop();
         eventsLog.clearEventsLog();
         stocksChart.clearStocksChart();
-        
+
         //exchange.reset()
-    }    
-    
-    public ChartViewer getChart () {
+    }
+
+    public ChartViewer getChart() {
         return stocksChart;
     }
-    
-    public EventViewer getEventLog () {
+
+    public EventViewer getEventLog() {
         return eventsLog;
     }
-    
-    public FilterTreeViewer getFilterTree () {
+
+    public FilterTreeViewer getFilterTree() {
         return filterTree;
     }
-    
-    public SettingsViewer getSettings () {
+
+    public SettingsViewer getSettings() {
         return simSettings;
     }
-    
-    public StockExchange getExchange () {
+
+    public StockExchange getExchange() {
         return exchange;
     }
-    
-    
-    
-    
-    
-    
-    
-}
 
+}
