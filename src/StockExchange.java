@@ -24,7 +24,6 @@ public class StockExchange extends Market {
     private int endTick;
     private Date startDate;
     private Date endDate;
-    private StockExchangeData mem;
     private ArrayList<ExternalEvent> externalEvents;
     private HashMap<Integer, ArrayList<ExternalEvent>> externalEventsIndexedToTicks;
     private ArrayList<Trader> traders;
@@ -33,6 +32,7 @@ public class StockExchange extends Market {
     private ArrayList<Portfolio> portfolios;
     private ViewController view; // 
     private ArrayList<TradeHappening> thisTickTrades;
+    private ArrayList<ExternalEvent> eventsThisTick;
 
     /**
      * Just like with Market/TradingExchange, this is provided for testing, not
@@ -120,12 +120,13 @@ public class StockExchange extends Market {
     @Override
     void tick() {
         this.thisTickTrades = null;
+        this.eventsThisTick = null;
         this.currentTick = this.currentTick + 1;
         // 1 randomly variate prices before traders can request...
         slightlyVariatePrices();
 
         // 2 apply events
-        ArrayList<ExternalEvent> eventsThisTick = this.externalEventsIndexedToTicks.get(this.currentTick);
+        this.eventsThisTick = this.externalEventsIndexedToTicks.get(this.currentTick);
         applyExternalEvents(eventsThisTick);
 
         // 3 & 4 Loop through supply and demand, then Execute current offers, update objects.
@@ -156,9 +157,8 @@ public class StockExchange extends Market {
         // put trader states (agressive, balanced, etc) in memory
         thisTickMemory.addOccuredTrades(this.thisTickTrades);
         // put the trades that occured this tick to last..
-        thisTickMemory.addEventChanges();
+        thisTickMemory.addEventChanges(this.eventsThisTick);
         // put the events that began and ended as a Strings under Events
-        thisTickMemory.commitRow();
         // lock the row for editing
 
         //7 notify GUI
