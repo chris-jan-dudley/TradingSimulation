@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class TickRow {
 
     ArrayList<Company> companyClonesAtTick;
+    private ArrayList<Trader> traders;
+    private ArrayList<TradeHappening> occured;
+    private ArrayList<ExternalEvent> eventsOccuring;
 
     /**
      *
@@ -40,20 +43,22 @@ public class TickRow {
     /**
      *
      */
-    public void addOccuredTrades() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    void addEventsOccuring(ArrayList<ExternalEvent> ev) {
+        this.eventsOccuring = ev;
     }
 
-    void addEventChanges() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    void addTraders() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     void commitRow() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void addTraders(ArrayList<Trader> clonedTraders) {
+        this.traders = clonedTraders;
+    }
+
+    void addOccuredTrades(ArrayList<TradeHappening> thisTickTrades) {
+        this.occured = thisTickTrades;
     }
 
 }

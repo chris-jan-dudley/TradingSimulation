@@ -153,4 +153,8 @@ public class ViewController extends Application {
         return exchange;
     }
 
+    void reportBadFile(String stock_Init_Data_was_not_valid_for_file_re) {
+        throw new UnsupportedConfigurationValueError();
+    }
+
 }
