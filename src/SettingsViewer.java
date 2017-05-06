@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Chris
+ * @author James G
  */
 public class SettingsViewer {
 
@@ -23,8 +23,9 @@ public class SettingsViewer {
     private DatePicker endDate = new DatePicker(LocalDate.of(2018, 1, 1));
 
     /**
+     * Creates the Ui elements in the settings menu and adds their interaction with the rest of the Ui
      *
-     * @param controller
+     * @param controller The ViewController that created the settings
      */
     public SettingsViewer(ViewController controller) {
         this.controller = controller;
@@ -120,24 +121,27 @@ public class SettingsViewer {
     }
 
     /**
-     *
-     * @return
+     * Gets the JavaFx node containing the chart and all associated elements
+     * 
+     * @return Node Javafx node containing the chart and controls
      */
     public Node getFxNode() {
         return container;
     }
 
     /**
+     * Get the start date of the simulation
      *
-     * @return
+     * @return LocalDate The start date
      */
     public LocalDate getStartDate() {
         return startDate.getValue();
     }
 
     /**
+     * Get the end date of the simulation
      *
-     * @return
+     * @return LocalDate The end date
      */
     public LocalDate getEndDate() {
         return endDate.getValue();
