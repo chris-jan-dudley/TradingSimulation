@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author Chris
+ * @author James G
  */
 public class ViewController extends Application {
 
@@ -44,7 +44,7 @@ public class ViewController extends Application {
     }
 
     /**
-     *
+     * Constructs the Ui classes and passes with required variables
      */
     public ViewController() {
         //All other classes    
@@ -63,36 +63,37 @@ public class ViewController extends Application {
     }
 
     /**
-     *
+     * Start up the Ui
      */
     public static void readyGUI() {
         launch();
     }
 
     /**
-     *
+     * Run the simulation
      */
     public void playSimulation() {
         ticker.play();
     }
 
     /**
-     *
+     * Pause the siumulation
      */
     public void pauseSimulation() {
         ticker.pause();
     }
 
     /**
+     * Set the speed multiplier of the simulation
      *
-     * @param newSpeed
+     * @param newSpeed The new speed
      */
     public void setSpeed(int newSpeed) {
         ticker.setRate(newSpeed);
     }
 
     /**
-     *
+     * Update the simulation View and Model
      */
     public void update() {
         stocksChart.updateAllSeries();
@@ -103,7 +104,7 @@ public class ViewController extends Application {
     }
 
     /**
-     *
+     * Stop the simulation and reset to the start
      */
     public void reset() {
         ticker.stop();
@@ -114,46 +115,52 @@ public class ViewController extends Application {
     }
 
     /**
+     * Get the chart Ui element
      *
-     * @return
+     * @return ChartViewer Chart class
      */
     public ChartViewer getChart() {
         return stocksChart;
     }
 
     /**
+     * Get the event Ui element
      *
-     * @return
+     * @return EventViewer Event class
      */
     public EventViewer getEventLog() {
         return eventsLog;
     }
 
     /**
+     * Get the tree Ui element
      *
-     * @return
+     * @return FilterTreeViewer Tree class
      */
     public FilterTreeViewer getFilterTree() {
         return filterTree;
     }
 
     /**
+     * Get the settings Ui element
      *
-     * @return
+     * @return SettingsViewer Settings class
      */
     public SettingsViewer getSettings() {
         return simSettings;
     }
 
     /**
+     * Get the stock exchange class
      *
-     * @return
+     * @return StockExchange
      */
     public StockExchange getExchange() {
         return exchange;
     }
 
-    void reportBadFile(String stock_Init_Data_was_not_valid_for_file_re) {
+    
+    public void reportBadFile(String stock_Init_Data_was_not_valid_for_file_re) {
         throw new UnsupportedConfigurationValueError();
     }
 
