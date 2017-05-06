@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Chris
+ * @author James G
  */
 public class ChartViewer {
 
@@ -35,9 +35,11 @@ public class ChartViewer {
     private ChartEntry indexEntry;
 
     /**
+     * Creates the date and share price axis and sets the bounds to the correct number of the days,
+     * as well as the view range date pickers
      *
-     * @param controller
-     * @param companies
+     * @param controller The ViewController that created the chart
+     * @param companies The Companies from the model
      */
     public ChartViewer(ViewController controller, ArrayList<Company> companies) {
         this.controller = controller;
@@ -89,20 +91,20 @@ public class ChartViewer {
 
         container.getChildren().addAll(lineChart, chartParameters);
     }
-
+  
+    /**
+     * Adds a random double at the specified tick value
+     * 
+     * @param tick Tick value to add the data at
+     */
     XYChart.Series testData = new XYChart.Series();
     Random ran = new Random();
-
-    /**
-     *
-     * @param tick
-     */
     public void addDataTest(double tick) {
         testData.getData().add(new XYChart.Data(tick, (ran.nextDouble() * 1) + 5));
     }
 
     /**
-     *
+     * Checks the validity of the date pickers and resizes the date axis accordingly
      */
     public void updateDateBounds() {
         LocalDate startDate = controller.getSettings().getStartDate();
@@ -120,16 +122,18 @@ public class ChartViewer {
     }
 
     /**
-     *
-     * @return
+     * Gets the JavaFx node containing the chart and all associated elements
+     * 
+     * @return Node Javafx node containing the chart and controls
      */
     public Node getFxNode() {
         return container;
     }
 
     /**
+     * Adds the provided list of companies to the chart with their starting share prices
      *
-     * @param companies
+     * @param companies Companies to add to the chart
      */
     public void addCompaniesToChart(ArrayList<Company> companies) {
         double sumSharePrice = 0;
@@ -152,7 +156,7 @@ public class ChartViewer {
     }
 
     /**
-     *
+     * Clears the current series contained in the chart
      */
     public void clearStocksChart() {
         companyEntries.clear();
@@ -160,7 +164,8 @@ public class ChartViewer {
     }
 
     /**
-     *
+     * Gets the latest share prices from the stock market data and adds them to the chart, 
+     * then computes the average for use in the index
      */
     public void updateAllSeries() {
         double day = controller.getExchange().getTick() / 28;
@@ -180,16 +185,18 @@ public class ChartViewer {
     }
 
     /**
+     * Gets the company entries used in the chart
      *
-     * @return
+     * @return ArrayList<ChartEntry> List of chart entries 
      */
     public ArrayList<ChartEntry> getCompanyEntries() {
         return companyEntries;
     }
 
     /**
-     *
-     * @return
+     * Get the specific chart entry for the index
+     * 
+     * @return ChartEntry The index chart entry
      */
     public ChartEntry getIndexEntry() {
         return indexEntry;
