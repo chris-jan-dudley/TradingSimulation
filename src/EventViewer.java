@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Chris
+ * @author James G
  */
 public class EventViewer {
 
@@ -19,9 +19,10 @@ public class EventViewer {
     ArrayList<ExternalEvent> events;
 
     /**
+     * Creates the scrollable pane used to list the events logged
      *
-     * @param controller
-     * @param events
+     * @param controller The ViewController that created the log
+     * @param events List of event that occur sometime in the simulation
      */
     public EventViewer(ViewController controller, ArrayList<ExternalEvent> events) {
         this.controller = controller;
@@ -37,37 +38,40 @@ public class EventViewer {
     }
 
     /**
-     *
-     * @return
+     * Gets the JavaFx node containing the chart and all associated elements
+     * 
+     * @return Node JavaFx node containing the chart and controls
      */
     public Node getFxNode() {
         return scrollablePane;
     }
 
     /**
+     * Checks if any of the events occur on this tick, if so adds them to the text box
      *
-     * @param tick
+     * @param tick Tick to check
      */
     public void displayEventsForTick(int tick) {
         for (ExternalEvent event : events) {
             if (event.getFromTick() == tick) {
-                //logEvent("[" + event.getDate().toLocaleString().substring(0, 11) + "]: ", event.getNature(), " " + event.getAction());
+                logEvent("[" + event.getDate().toLocaleString().substring(0, 11) + "]: ", event.getNature(), " " + event.getAction());
             }
         }
     }
 
     /**
-     *
+     * Removes all messages from the text box
      */
     public void clearEventsLog() {
         eventStack.getChildren().removeAll(eventStack.getChildren());
     }
 
     /**
+     * Creates a net event in the text box with the listed parameters
      *
-     * @param date
-     * @param nature
-     * @param action
+     * @param date Date of the event
+     * @param nature Cause of the event
+     * @param action Results of the event
      */
     public void logEvent(String date, String nature, String action) {
         eventStack.getChildren().add(

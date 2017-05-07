@@ -1,5 +1,6 @@
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -11,7 +12,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Chris
+ * @author James G
  */
 public class SettingsViewer {
 
@@ -23,8 +24,9 @@ public class SettingsViewer {
     private DatePicker endDate = new DatePicker(LocalDate.of(2018, 1, 1));
 
     /**
+     * Creates the Ui elements in the settings menu and adds their interaction with the rest of the Ui
      *
-     * @param controller
+     * @param controller The ViewController that created the settings
      */
     public SettingsViewer(ViewController controller) {
         this.controller = controller;
@@ -66,18 +68,21 @@ public class SettingsViewer {
             }
         });
 
+        Button playPauseBut = new Button("▶");
+        Button stopBut = new Button("■");
         Button speedSet = new Button("Set");
         speedSet.setMaxWidth(40);
         speedSet.setOnAction(e -> {
             int speedNum = 0;
             try {
                 speedNum = Integer.parseInt(speedInput.getText());
-                controller.setSpeed(speedNum);
+                if (speedNum >= 1) {
+                    controller.setSpeed(speedNum);
+                }
             } catch (NumberFormatException n) {
             }
-        });
-
-        Button playPauseBut = new Button("▶");
+        });    
+        
         playPauseBut.setOnAction(e -> {
             startDate.setDisable(true);
             endDate.setDisable(true);
@@ -85,19 +90,21 @@ public class SettingsViewer {
             if (playPauseBut.getText().equals("▶")) {
                 playPauseBut.setText("||");
                 controller.playSimulation();
+                stopBut.setDisable(false);
             } else {
                 playPauseBut.setText("▶");
                 controller.pauseSimulation();
+                stopBut.setDisable(true);
             }
         });
-
-        Button stopBut = new Button("■");
+        
         stopBut.setOnAction(e -> {
             startDate.setDisable(false);
             endDate.setDisable(false);
             playPauseBut.setText("▶");
             controller.reset();
         });
+        
 
         HBox controls = new HBox(7);
         controls.getChildren().addAll(
@@ -120,26 +127,48 @@ public class SettingsViewer {
     }
 
     /**
-     *
-     * @return
+     * Gets the JavaFx node containing the chart and all associated elements
+     * 
+     * @return Node Javafx node containing the chart and controls
      */
     public Node getFxNode() {
         return container;
     }
 
     /**
+     * Get the start date of the simulation
      *
-     * @return
+     * @return LocalDate The start date
      */
     public LocalDate getStartDate() {
         return startDate.getValue();
     }
 
     /**
+     * Get the end date of the simulation
      *
-     * @return
+     * @return LocalDate The end date
      */
     public LocalDate getEndDate() {
         return endDate.getValue();
     }
+    
+    /**
+     * Get the end date of the simulation
+     *
+     * @return LocalDate The end date
+     */
+    public int getDaysBetween() {
+        return (int) ChronoUnit.DAYS.between(startDate.getValue(), endDate.getValue());
+    }
+    
+    public void updateInputs () {
+        if (controller.atStart) {
+            startDate.setDisable(false);
+            endDate.setDisable(false);
+        }
+        
+    }
+    
+    
 }

@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Chris
+ * @author James G
  */
 public class FilterTreeViewer {
 
@@ -23,8 +23,9 @@ public class FilterTreeViewer {
     TreeItem companiesRoot = new TreeItem<>("Companies");
 
     /**
+     * Creates the tree element
      *
-     * @param controller
+     * @param controller The ViewController that created the tree
      */
     public FilterTreeViewer(ViewController controller) {
         this.controller = controller;
@@ -44,6 +45,9 @@ public class FilterTreeViewer {
         container.setMinWidth(210);
     }
 
+    /**
+     * Loads the tree nodes from the companies pass in the constructor (Change need to code)
+     */
     private void loadTree() {
         TreeItem<String> index = new TreeItem<>("Index");
         indexRoot.getChildren().add(index);
@@ -63,17 +67,19 @@ public class FilterTreeViewer {
     }
 
     /**
-     *
-     * @return
+     * Gets the JavaFx node containing the chart and all associated elements
+     * 
+     * @return Node Javafx node containing the chart and controls
      */
     public Node getFxNode() {
         return container;
     }
 
+    /**
+     * Modifies the default class to a tree node to all from custom checkboxes and interaction with the chart viewer
+     */
     class CustomCell extends TreeCell<String> {
-
         TreeItem currItem;
-
         @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -113,7 +119,6 @@ public class FilterTreeViewer {
                                 break;
                         }
                     });
-
                     Label label = new Label(item);
 
                     label.prefHeightProperty().bind(checkBox.heightProperty());
