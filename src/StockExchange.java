@@ -217,8 +217,12 @@ public class StockExchange extends Market {
         }
     }
 
-    Iterable<Company> getCompanies() {
+    ArrayList<Company> getCompanies() {
         return this.companies;
+    }
+    
+    ArrayList<ExternalEvent> getEvents() {
+        return externalEvents;
     }
 
     /**
