@@ -31,8 +31,9 @@ public class RandomTrader extends Trader {
         tradeMode = mode.BALANCED;
     }
 
+    
     @Override
-    ArrayList<Request> tradeBuy() {
+    public ArrayList<Request> tradeBuy() {
         //For each client, generate a request object which contains a reference
         // to the portfolio, and a list of shares it would like to buy
 
@@ -58,35 +59,38 @@ public class RandomTrader extends Trader {
                                 //generate a random int to "randomly" add shares
                                 int randomInteger = randomInt();
                                 //if the int is 5 or less AND the above condition
-                                if (randomInteger <= 5 && calculateValue(wantBuy) < ((double) client.getNetWorth() * 0.01)) {
+                                if (randomInteger <= 5) {
                                     //add a share to the wantBuy map
                                     addToMap(wantBuy, company, 1);
                                 }
                             }
                         }
                     }
+                    break;
                 case PURCHASER:
                     {
                         while (calculateValue(wantBuy) < ((double) client.getNetWorth() * 0.02)) {
                             for (Company company: stockE.getCompanies()) {
                                 int randomInteger = randomInt();
-                                if (randomInteger <= 5 && calculateValue(wantBuy) < ((double) client.getNetWorth() * 0.02)) {
+                                if (randomInteger <= 5) {
                                     addToMap(wantBuy, company, 1);
                                 }
                             }
                         }
                     }
+                    break;
                 case SELLER:
                     {
                         while (calculateValue(wantBuy) < ((double) client.getNetWorth() * 0.005)) {
                             for (Company company: stockE.getCompanies()) {
                                 int randomInteger = randomInt();
-                                if (randomInteger <= 5 && calculateValue(wantBuy) < ((double) client.getNetWorth() * 0.005)) {
+                                if (randomInteger <= 5) {
                                     addToMap(wantBuy, company, 1);
                                 }
                             }
                         }
                     }
+                    break;
             }
 
             //adds the wantBuy map to the Request object
@@ -98,56 +102,64 @@ public class RandomTrader extends Trader {
         return buyRequests;
     }
 
+    //The method for adding requests to sell shares the client already owns
     @Override
-    ArrayList<Request> tradeSell() {
-        for (Client client: clients) {
+    public ArrayList<Request> tradeSell() {
+        //For each client
+        for (Client client : clients) {
             Request sellReq = new Request(client.get_Portfolio());
-            HashMap < Company, Integer > wantSell = new HashMap < > ();
+            HashMap< Company, Integer> wantSell = new HashMap<>();
             switch (tradeMode) {
-                case BALANCED:
-                    {
-                        while ((calculateValue(wantSell) < ((double) client.getNetWorth() * 0.01)  || (client.get_Portfolio().calculateNetWorth() == calculateValue(wantSell)))) {
-                            for (Company company: client.get_Portfolio().ownedShares.keySet()) {
-                                int randomInteger = randomInt();
-                                if (randomInteger <= 5 && calculateValue(wantSell) < ((double) client.getNetWorth() * 0.01)) {
-                                    addToMap(wantSell, company, 1);
-                                }
+                case BALANCED: {
+                    //While the total value of the sell requests is less than 1% of the total value of portfolio
+                    while (calculateValue(wantSell) < ((double) client.getNetWorth() * 0.01)) {
+                        //For each type of share
+                        for (Company company : client.get_Portfolio().ownedShares.keySet()) {
+                            int randomInteger = randomInt();
+                            //50% chance to add one of those shares to the sell request
+                            if (randomInteger <= 5) {
+                                addToMap(wantSell, company, 1);
                             }
+                            
                         }
                     }
-                case PURCHASER:
-                    {
-                        while ((calculateValue(wantSell) < ((double) client.getNetWorth() * 0.005)  || (client.get_Portfolio().calculateNetWorth() == calculateValue(wantSell)))) {
-                            for (Company company: client.get_Portfolio().ownedShares.keySet()) {
-                                int randomInteger = randomInt();
-                                if (randomInteger <= 5 && calculateValue(wantSell) < ((double) client.getNetWorth() * 0.005 )) {
-                                    addToMap(wantSell, company, 1);
-                                }
+                }
+                break;
+                case PURCHASER: {
+                    while (calculateValue(wantSell) < ((double) client.getNetWorth() * 0.005)) {
+                        for (Company company : client.get_Portfolio().ownedShares.keySet()) {
+                            int randomInteger = randomInt();
+                            if (randomInteger <= 5) {
+                                addToMap(wantSell, company, 1);
                             }
+                            
                         }
                     }
-                case SELLER:
-                    {
-                        while ((calculateValue(wantSell) < ((double) client.getNetWorth() * 0.02) || (client.get_Portfolio().calculateNetWorth() == calculateValue(wantSell)))) {
-                            for (Company company: client.get_Portfolio().ownedShares.keySet()) {
-                                int randomInteger = randomInt();
-                                if (randomInteger <= 5 && calculateValue(wantSell) < ((double) client.getNetWorth() * 0.02)) {
-                                    addToMap(wantSell, company, 1);
-                                }
+                }
+                break;
+                case SELLER: {
+                    while (calculateValue(wantSell) < ((double) client.getNetWorth() * 0.02)) {
+                        for (Company company : client.get_Portfolio().ownedShares.keySet()) {
+                            int randomInteger = randomInt();
+                            if (randomInteger <= 5) {
+                                addToMap(wantSell, company, 1);
                             }
+                            
                         }
                     }
+                }
+                break;
             }
 
             sellReq.setMap(wantSell);
             sellRequests.add(sellReq);
         }
-        
+
         return sellRequests;
     }
 
     //This is used to calculate the value of a map in terms of the sum of all (share number * share price)
-    int calculateValue(HashMap < Company, Integer > map) {
+    public int calculateValue(HashMap < Company, Integer > map) {
         int totalMapValue = 0;
         if (!map.isEmpty()) {
             for (Company company: map.keySet()) {
@@ -178,7 +190,7 @@ public class RandomTrader extends Trader {
     @Override
     void recalculateStrategy() {
         switch (tradeMode) {
-            case BALANCED:
+            case BALANCED:{
                 int probabilityB = randomInt();
                 if (probabilityB > 2) {
                     tradeMode = mode.BALANCED;
@@ -187,22 +199,27 @@ public class RandomTrader extends Trader {
                 } else if (probabilityB == 2) {
                     tradeMode = mode.PURCHASER;
                 }
+            }
+            break;
 
-            case PURCHASER:
+            case PURCHASER:{
                 int probabilityP = randomInt();
                 if (probabilityP > 3) {
                     tradeMode = mode.BALANCED;
                 } else {
                     tradeMode = mode.SELLER;
                 }
-
-            case SELLER:
+            }
+            break;
+            case SELLER:{
                 int probabilityS = randomInt();
                 if (probabilityS > 4) {
                     tradeMode = mode.BALANCED;
                 } else {
                     tradeMode = mode.SELLER;
                 }
+            }
+            break;
         }
     }
     
