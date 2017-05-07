@@ -124,7 +124,7 @@ public class ChartViewer {
     /**
      * Gets the JavaFx node containing the chart and all associated elements
      * 
-     * @return Node Javafx node containing the chart and controls
+     * @return Node JavaFx node containing the chart and controls
      */
     public Node getFxNode() {
         return container;
@@ -172,12 +172,12 @@ public class ChartViewer {
         double sumSharePrice = 0;
         for (ChartEntry entry : companyEntries) {
             Company entryComp = (Company) entry.getObject();
-            //for (Company modelComp : controller.getExchange().getStockExchangeData().getLatestRow().getCompanyPrices) {
-            //    if (modelComp.getName().equals(entryComp.getName())) {
-            //        entry.getSeries().getData().add(new XYChart.Data(day, modelComp.getSharePrice()));
-            //        sumSharePrice += entryComp.getSharePrice(); 
-            //    }                           
-            //}
+            for (Company modelComp : controller.getExchange().getStockExchangeData().getLatestRow().getCompanyPrices) {
+                if (modelComp.getName().equals(entryComp.getName())) {
+                    entry.getSeries().getData().add(new XYChart.Data(day, modelComp.getSharePrice()));
+                    sumSharePrice += entryComp.getSharePrice(); 
+                }                           
+            }
 
         }
         indexEntry.getSeries().getData().add(new XYChart.Data(day, sumSharePrice / companyEntries.size()));

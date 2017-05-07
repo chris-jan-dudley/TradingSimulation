@@ -44,17 +44,16 @@ public class ViewController extends Application {
     }
 
     /**
-     * Constructs the Ui classes and passes with required variables
+     * Constructs the UI classes and passes with required variables
      */
     public ViewController() {
         //All other classes    
-        //exchange = new StockExchange(parameters);
         simSettings = new SettingsViewer(this);
         stocksChart = new ChartViewer(this, null);
-        //stocksChart = new ChartViewer(this, exchange.getCompanies());
+        stocksChart = new ChartViewer(this, exchange.getCompanies());
         filterTree = new FilterTreeViewer(this);
         eventsLog = new EventViewer(this, null);
-        //eventsLog = new EventViewer(this, exchange.getEvents());
+        eventsLog = new EventViewer(this, exchange.getEvents());
 
         ticker = new Timeline(new KeyFrame(Duration.minutes(15), e -> {
             update();
@@ -63,7 +62,7 @@ public class ViewController extends Application {
     }
 
     /**
-     * Start up the Ui
+     * Start up the UI
      */
     public static void readyGUI() {
         launch();
@@ -77,7 +76,7 @@ public class ViewController extends Application {
     }
 
     /**
-     * Pause the siumulation
+     * Pause the simulation
      */
     public void pauseSimulation() {
         ticker.pause();
@@ -99,8 +98,6 @@ public class ViewController extends Application {
         stocksChart.updateAllSeries();
         eventsLog.displayEventsForTick(exchange.getTick());
         exchange.tick();
-
-        //All other update methods
     }
 
     /**
@@ -115,7 +112,7 @@ public class ViewController extends Application {
     }
 
     /**
-     * Get the chart Ui element
+     * Get the chart UI element
      *
      * @return ChartViewer Chart class
      */
@@ -124,7 +121,7 @@ public class ViewController extends Application {
     }
 
     /**
-     * Get the event Ui element
+     * Get the event UI element
      *
      * @return EventViewer Event class
      */
@@ -133,7 +130,7 @@ public class ViewController extends Application {
     }
 
     /**
-     * Get the tree Ui element
+     * Get the tree UI element
      *
      * @return FilterTreeViewer Tree class
      */
@@ -142,7 +139,7 @@ public class ViewController extends Application {
     }
 
     /**
-     * Get the settings Ui element
+     * Get the settings UI element
      *
      * @return SettingsViewer Settings class
      */
@@ -161,7 +158,7 @@ public class ViewController extends Application {
 
     
     public void reportBadFile(String stock_Init_Data_was_not_valid_for_file_re) {
-        throw new UnsupportedConfigurationValueError();
+        PopupWindow.display("Message", 200);
     }
 
 }
