@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -70,7 +71,7 @@ public class StockExchange extends Market {
         // initialise memory
         this.mem = new StockExchangeData();
 
-        this.view.readyGUI();
+        
     }
 
     /**
@@ -217,12 +218,49 @@ public class StockExchange extends Market {
         }
     }
 
-    ArrayList<Company> getCompanies() {
+    /**
+     * Get the companies list
+     *
+     * @return ArrayList
+     */
+    public ArrayList<Company> getCompanies() {
         return this.companies;
     }
     
-    ArrayList<ExternalEvent> getEvents() {
+    /**
+     * Get the events list
+     *
+     * @return ArrayList
+     */
+    public ArrayList<ExternalEvent> getEvents() {
         return externalEvents;
+    }
+    
+    /**
+     * Get the current tick
+     *
+     * @return int
+     */
+    public int getCurrTick() {
+        return currentTick;
+    }
+    
+    /**
+     * Get the end tick
+     *
+     * @return int
+     */
+    public int getEndTick() {
+        return endTick;
+    }
+    
+    /**
+     * Get the StockExchangeData object from the parent
+     *
+     * @return StockExchangeData
+     */
+    public StockExchangeData getStockExchangeData() {
+        return mem;
     }
 
     /**
@@ -265,8 +303,8 @@ public class StockExchange extends Market {
         return evIndex;
     }
 
-    private void calculateEndTick() {
-        this.endTick = 100;
+    public void calculateEndTick() {
+        this.endTick = view.getSettings().getDaysBetween() * 28;
     }
 
     private void slightlyVariatePrices() {

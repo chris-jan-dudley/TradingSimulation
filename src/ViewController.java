@@ -16,14 +16,17 @@ import javafx.util.Duration;
  */
 public class ViewController extends Application {
 
-    BorderPane root = new BorderPane();
-    SettingsViewer simSettings;
-    ChartViewer stocksChart;
-    FilterTreeViewer filterTree;
-    EventViewer eventsLog;
+    private BorderPane root = new BorderPane();
+    private SettingsViewer simSettings;
+    private ChartViewer stocksChart;
+    private FilterTreeViewer filterTree;
+    private EventViewer eventsLog;
 
-    StockExchange exchange;
-    Timeline ticker;
+    private StockExchange exchange;
+    
+    private Timeline ticker;
+    public boolean atStart = true;
+    public boolean completed = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -47,18 +50,23 @@ public class ViewController extends Application {
      * Constructs the UI classes and passes with required variables
      */
     public ViewController() {
-        //All other classes    
+        //exchange = (StockExchange) TradingSimulation.getTradeExchange().getMarket(0);
         simSettings = new SettingsViewer(this);
         stocksChart = new ChartViewer(this, null);
-        stocksChart = new ChartViewer(this, exchange.getCompanies());
+        //stocksChart = new ChartViewer(this, exchange.getCompanies());
         filterTree = new FilterTreeViewer(this);
         eventsLog = new EventViewer(this, null);
-        eventsLog = new EventViewer(this, exchange.getEvents());
-
+        //eventsLog = new EventViewer(this, exchange.getEvents());
+                
         ticker = new Timeline(new KeyFrame(Duration.minutes(15), e -> {
-            update();
+            if (exchange.getCurrTick() <= exchange.getEndTick()) {
+                update();
+            } else {
+                completed = true;
+                ticker.stop();
+            }
         }));
-        ticker.setCycleCount(Animation.INDEFINITE);
+        ticker.setCycleCount(Animation.INDEFINITE);        
     }
 
     /**
@@ -72,6 +80,7 @@ public class ViewController extends Application {
      * Run the simulation
      */
     public void playSimulation() {
+        atStart = false;
         ticker.play();
     }
 
@@ -95,8 +104,9 @@ public class ViewController extends Application {
      * Update the simulation View and Model
      */
     public void update() {
+        System.out.println(exchange);
         stocksChart.updateAllSeries();
-        eventsLog.displayEventsForTick(exchange.getTick());
+        eventsLog.displayEventsForTick(exchange.getCurrTick());
         exchange.tick();
     }
 
@@ -104,6 +114,9 @@ public class ViewController extends Application {
      * Stop the simulation and reset to the start
      */
     public void reset() {
+        atStart = true;
+        completed = false;
+        
         ticker.stop();
         eventsLog.clearEventsLog();
         stocksChart.clearStocksChart();

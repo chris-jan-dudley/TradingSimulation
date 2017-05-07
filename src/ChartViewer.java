@@ -168,11 +168,11 @@ public class ChartViewer {
      * then computes the average for use in the index
      */
     public void updateAllSeries() {
-        double day = controller.getExchange().getTick() / 28;
+        double day = controller.getExchange().getCurrTick() / 28;
         double sumSharePrice = 0;
         for (ChartEntry entry : companyEntries) {
             Company entryComp = (Company) entry.getObject();
-            for (Company modelComp : controller.getExchange().getStockExchangeData().getLatestRow().getCompanyPrices) {
+            for (Company modelComp : controller.getExchange().getStockExchangeData().getLatestRow().getCompanyPrices()) {
                 if (modelComp.getName().equals(entryComp.getName())) {
                     entry.getSeries().getData().add(new XYChart.Data(day, modelComp.getSharePrice()));
                     sumSharePrice += entryComp.getSharePrice(); 

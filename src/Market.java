@@ -91,5 +91,5 @@ abstract public class Market {
     public Date getDateFromTick(int tick) {
         return new Date(0, 0, 0);
     }
-
+    
 }
