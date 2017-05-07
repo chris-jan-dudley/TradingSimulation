@@ -162,9 +162,6 @@ public class StockExchange extends Market {
         // put the events that began and ended as a Strings under Events
         // lock the row for editing
 
-        //7 notify GUI
-        view.update();
-
     }
 
     // note: kept public for individually testing CSV loading the events file only
