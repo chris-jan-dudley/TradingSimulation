@@ -371,14 +371,14 @@ public class StockExchange extends Market {
 
         // Collect and store supply and demand for each Company
         
-
+        /*
         for (Trader t : traders) {
             ArrayList<Pair<Company, int>> wantToBuy = t.getWantToBuy();
             for (Pair<Company, int> requestedPurchase : wantToBuy) {
                 // add to relevant CompanyTradeInfo
 
             }
-        }
+        } */
     }
 
 }
