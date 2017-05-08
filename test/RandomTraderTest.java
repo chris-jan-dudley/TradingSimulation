@@ -6,14 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tradingsimulation.Client;
-import tradingsimulation.Company;
-import tradingsimulation.FoodCompany;
-import tradingsimulation.Portfolio;
-import tradingsimulation.RandomTrader;
-import tradingsimulation.StockExchange;
-import tradingsimulation.Trader;
-import tradingsimulation.Request;
 /**
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,7 +28,7 @@ public class RandomTraderTest {
     @Before
     public void setUp() {
         stockE = new StockExchange("oil");
-        company = new FoodCompany(50, 10);
+        company = new FoodCompany("bakedBeans", 50, 10);
         trader = new RandomTrader(null, stockE);
         portfolio = new Portfolio (null, trader);
         client = new Client(trader, portfolio, 50, "steve");
