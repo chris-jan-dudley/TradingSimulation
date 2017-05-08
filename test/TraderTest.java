@@ -28,7 +28,7 @@ public class TraderTest {
     @Before
     public void setUp() {
         StockExchange stockE = new StockExchange("oil");
-        company = new FoodCompany(50, 10);
+        company = new FoodCompany("bakedBeans", 50, 10);
         trader = new RandomTrader(null, stockE);
         portfolio = new Portfolio (null, trader);
         client = new Client(trader, portfolio, 50, "steve");
