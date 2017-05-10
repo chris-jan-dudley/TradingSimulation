@@ -352,7 +352,8 @@ public class StockExchange extends Market {
      */
     private void executeTrades() {
         ArrayList<TradeHappening> trades = this.thisTickTrades;
-
+        HashMap< Company, Integer > demandedThisTick;
+        HashMap< Company, Integer > availableToSellThisTick;
         // TO CHANGE: below
         // .trade(Buy|Sell)  are implemented as per-Trader --> per Traders Clients --> per Portfolio in randomTrader
         // so instead of iterating through portfolio, iterate through traders out (it does make more sense...)
@@ -364,7 +365,11 @@ public class StockExchange extends Market {
             // each request has a map of what that portfolio should aim to buy or sell.
             for (Request portfolioInstance : wantToBuy) {
                 HashMap< Company, Integer> buyMap = portfolioInstance.getMap();
-
+                
+            }
+            
+            for (Request portfolioInstance : wantToSell) {
+                HashMap< Company, Integer> sellMap = portfolioInstance.getMap();
             }
 
         }
