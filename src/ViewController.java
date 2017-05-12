@@ -49,7 +49,8 @@ public class ViewController extends Application {
     /**
      * Constructs the UI classes and passes with required variables
      */
-    public ViewController() {
+    public ViewController(StockExchange exchange) {
+        this.exchange = exchange;
         System.out.println(":: Launched Program");
         //exchange = (StockExchange) TradingSimulation.getTradeExchange().getMarket(0);
         simSettings = new SettingsViewer(this);
