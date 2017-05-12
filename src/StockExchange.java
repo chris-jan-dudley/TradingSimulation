@@ -120,6 +120,7 @@ public class StockExchange extends Market {
      */
     @Override
     void tick() {
+        System.out.println("::MOD:: Ticking");
         this.thisTickTrades = null;
         this.eventsThisTick = null;
         this.currentTick = this.currentTick + 1;

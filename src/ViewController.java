@@ -50,6 +50,7 @@ public class ViewController extends Application {
      * Constructs the UI classes and passes with required variables
      */
     public ViewController() {
+        System.out.println(":: Launched Program");
         //exchange = (StockExchange) TradingSimulation.getTradeExchange().getMarket(0);
         simSettings = new SettingsViewer(this);
         stocksChart = new ChartViewer(this, null);
@@ -59,14 +60,16 @@ public class ViewController extends Application {
         //eventsLog = new EventViewer(this, exchange.getEvents());
                 
         ticker = new Timeline(new KeyFrame(Duration.minutes(15), e -> {
+            System.out.println("::VWC:: Stepping Tick");
             if (exchange.getCurrTick() <= exchange.getEndTick()) {
-                update();
+                this.update();
             } else {
                 completed = true;
                 ticker.stop();
             }
         }));
-        ticker.setCycleCount(Animation.INDEFINITE);        
+        ticker.setCycleCount(Animation.INDEFINITE);     
+        System.out.println(":: Ticker Object Activated");
     }
 
     /**
@@ -80,6 +83,7 @@ public class ViewController extends Application {
      * Run the simulation
      */
     public void playSimulation() {
+        System.out.println("::CMD:: Play Simulation");
         atStart = false;
         ticker.play();
     }
@@ -88,6 +92,7 @@ public class ViewController extends Application {
      * Pause the simulation
      */
     public void pauseSimulation() {
+        System.out.println("::CMD:: Pause Simulation");
         ticker.pause();
     }
 
@@ -97,6 +102,7 @@ public class ViewController extends Application {
      * @param newSpeed The new speed
      */
     public void setSpeed(int newSpeed) {
+        System.out.println("::CMD:: Change Speed");
         ticker.setRate(newSpeed);
     }
 
@@ -104,10 +110,11 @@ public class ViewController extends Application {
      * Update the simulation View and Model
      */
     public void update() {
+        System.out.println("::PRC:: Step Tick");
+        exchange.tick();
         System.out.println(exchange);
         stocksChart.updateAllSeries();
         eventsLog.displayEventsForTick(exchange.getCurrTick());
-        exchange.tick();
     }
 
     /**

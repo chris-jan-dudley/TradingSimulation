@@ -88,10 +88,12 @@ public class SettingsViewer {
             endDate.setDisable(true);
 
             if (playPauseBut.getText().equals("▶")) {
+                System.out.println("::  SET-VIEW:: Play Button Press");
                 playPauseBut.setText("||");
                 controller.playSimulation();
                 stopBut.setDisable(false);
             } else {
+                System.out.println("::  SET-VIEW:: Pause Button Press");
                 playPauseBut.setText("▶");
                 controller.pauseSimulation();
                 stopBut.setDisable(true);
