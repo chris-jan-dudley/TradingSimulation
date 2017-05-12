@@ -13,11 +13,12 @@ public class TradingSimulation {
     public static void main(String[] args) {
         //TODO code application logic here
         //Create a TradingExchnage instance, set it to the static variable
+        ViewController.readyGUI();
+        // this first so that view is about, view is required to return error on csv load etc.
         TradingSimulation tS = new TradingSimulation(1, args[0], args[1]);
         TradingExchange tE = tS.getTradeExchange();
         StockExchange sE = (StockExchange)tE.getMarket(0);
-        ViewController v = new ViewController(sE);
-        ViewController.readyGUI();
+        
     }
     
     public TradingExchange getTradeExchange() {

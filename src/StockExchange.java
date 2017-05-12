@@ -60,6 +60,7 @@ public class StockExchange extends Market {
      */
     public StockExchange(String marketName, String csvStockDataFileName, String csvExternalEventsFileName) {
         super(marketName);
+        this.view = new ViewController(this);
         if (!this.constructFromCSV(csvStockDataFileName, csvExternalEventsFileName)) {
             // throw error to GUI
             throw new UnsupportedOperationException("Attach method to tell user CSV was not able to loaded, through GUI.");
