@@ -60,7 +60,7 @@ public class RandomTrader extends Trader {
                                 //if the int is 5 or less AND the above condition
                                 if (randomInteger <= 5) {
                                     //add a share to the wantBuy map
-                                    addToMap(wantBuy, company, 1);
+                                    addToMap(wantBuy, company, 10);
                                 }
                             }
                         }
@@ -72,7 +72,7 @@ public class RandomTrader extends Trader {
                             for (Company company: stockE.getCompanies()) {
                                 int randomInteger = randomInt();
                                 if (randomInteger <= 5) {
-                                    addToMap(wantBuy, company, 1);
+                                    addToMap(wantBuy, company, 10);
                                 }
                             }
                         }

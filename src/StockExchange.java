@@ -60,6 +60,7 @@ public class StockExchange extends Market {
      */
     public StockExchange(String marketName, String csvStockDataFileName, String csvExternalEventsFileName) {
         super(marketName);
+        this.view = new ViewController(this);
         if (!this.constructFromCSV(csvStockDataFileName, csvExternalEventsFileName)) {
             // throw error to GUI
             throw new UnsupportedOperationException("Attach method to tell user CSV was not able to loaded, through GUI.");
@@ -120,6 +121,7 @@ public class StockExchange extends Market {
      */
     @Override
     void tick() {
+        System.out.println("::MOD:: Ticking");
         this.thisTickTrades = null;
         this.eventsThisTick = null;
         this.currentTick = this.currentTick + 1;
@@ -352,7 +354,8 @@ public class StockExchange extends Market {
      */
     private void executeTrades() {
         ArrayList<TradeHappening> trades = this.thisTickTrades;
-
+        HashMap< Company, Integer > demandedThisTick = new HashMap<>();
+        HashMap< Company, Integer > availableToSellThisTick = new HashMap<>();
         // TO CHANGE: below
         // .trade(Buy|Sell)  are implemented as per-Trader --> per Traders Clients --> per Portfolio in randomTrader
         // so instead of iterating through portfolio, iterate through traders out (it does make more sense...)
@@ -364,9 +367,15 @@ public class StockExchange extends Market {
             // each request has a map of what that portfolio should aim to buy or sell.
             for (Request portfolioInstance : wantToBuy) {
                 HashMap< Company, Integer> buyMap = portfolioInstance.getMap();
-
+                demandedThisTick.putAll(buyMap);
             }
-
+            
+            for (Request portfolioInstance : wantToSell) {
+                HashMap< Company, Integer> sellMap = portfolioInstance.getMap();
+                availableToSellThisTick.putAll(sellMap);
+            }
+            System.out.println("Demanded Size:" + demandedThisTick.size() + " and" + availableToSellThisTick.size() );
+            
         }
 
         // Collect and store supply and demand for each Company
